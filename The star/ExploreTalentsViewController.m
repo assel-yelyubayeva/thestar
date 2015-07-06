@@ -8,9 +8,10 @@
 
 #import "ExploreTalentsViewController.h"
 
-@interface ExploreTalentsViewController ()
+@interface ExploreTalentsViewController ()<UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *searchTextField;
-@property (weak, nonatomic) IBOutlet UITableViewCell *tableView;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+
 
 @end
 
@@ -18,6 +19,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.searchTextField.delegate=self;
     // Do any additional setup after loading the view.
 }
 
@@ -25,7 +27,14 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    if (textField == self.searchTextField) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Title" message:@"Message" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [alert show];
+        return NO;
+    }
+    return YES;
+}
 /*
 #pragma mark - Navigation
 
