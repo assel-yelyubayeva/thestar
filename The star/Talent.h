@@ -12,6 +12,7 @@
 @property (nonatomic) NSString *fullName;
 @property (nonatomic) UIImage *avatar;
 @property (nonatomic) NSString *city;
+@property (nonatomic) NSString *country;
 @property (nonatomic) NSString *gender;
 @property (nonatomic) NSNumber *age;
 @property (nonatomic) NSNumber *height;
@@ -19,5 +20,5 @@
 @property (nonatomic) NSArray *languages;
 @property (nonatomic) NSMutableArray *photos;
 @property (nonatomic) NSMutableArray *videos;
--(instancetype) initWithFullName:(NSString *)fullName andAvatar: (UIImage*)avatar andCity:(NSString *)city andGender:(NSString*)gender andAge:(NSNumber*)age andHeight:(NSNumber*)height andSkills:(NSArray*) skills andLanguages: (NSArray*)languages andPhotos:(NSArray*) photos andVideos: (NSMutableArray*) videos;
+-(instancetype) initWithFullName:(NSString *)fullName andAvatar: (UIImage*)avatar andCity:(NSString *)city andCountry: (NSString*) country andGender:(NSString*)gender andAge:(NSNumber*)age andHeight:(NSNumber*)height andSkills:(NSArray*) skills andLanguages: (NSArray*)languages andPhotos:(NSMutableArray*) photos andVideos: (NSMutableArray*) videos;
 @end

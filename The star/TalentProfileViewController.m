@@ -94,7 +94,7 @@
 }
 -(void) downloadTalent{
     PFQuery *query = [PFQuery queryWithClassName:@"User"];
-    [query getObjectInBackgroundWithId:@"SEuYB25QCB" block:^(PFObject *user, NSError *error) {
+    [query getObjectInBackgroundWithId:self.userID block:^(PFObject *user, NSError *error) {
         // Do something with the returned PFObject in the gameScore variable.
             NSString *tFullName= user[@"fullName"];
             
@@ -103,23 +103,25 @@
             UIImage *tAvatar = [UIImage imageWithData:avatarData];
             __block NSNumber *tAge = [[NSNumber alloc] init];
             __block NSNumber *tHeight = [[NSNumber alloc]init];
-            __block NSString*tCity = [[NSString alloc] init];
+            __block NSString *tCity = [[NSString alloc] init];
+            __block NSString *tCountry = [[NSString alloc] init];
             __block NSString *tGender = [[NSString alloc] init];
             __block NSArray *tSkills = [[NSArray alloc]init];
             __block NSArray *tLanguages = [[NSArray alloc]init];
         
             PFQuery *queryTalent = [PFQuery queryWithClassName:@"Talent"];
-            [queryTalent whereKey:@"userID" equalTo:@"SEuYB25QCB"];
+            [queryTalent whereKey:@"userID" equalTo:self.userID];
             [queryTalent findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *errorTalent) {
                 tAge=objects[0][@"age"];
                 tHeight=objects[0][@"height"];
                 tCity=objects[0][@"city"];
+                tCountry=objects[0][@"country"];
                 tGender=objects[0][@"gender"];
                 tSkills= objects[0][@"skills"];
                 tLanguages = objects[0][@"languages"];
    
                 PFQuery *queryPhotos = [PFQuery queryWithClassName:@"Photo"];
-                [queryPhotos whereKey:@"userID" equalTo:@"SEuYB25QCB"];
+                [queryPhotos whereKey:@"userID" equalTo:self.userID];
                 [queryPhotos findObjectsInBackgroundWithBlock:^(NSArray *photos, NSError *errorPhoto) {
                     NSMutableArray *photosArray = [[NSMutableArray alloc] init];
 
@@ -129,7 +131,7 @@
                     }
                     
                     PFQuery *queryVideos = [PFQuery queryWithClassName:@"Video"];
-                    [queryVideos whereKey:@"userID" equalTo:@"SEuYB25QCB"];
+                    [queryVideos whereKey:@"userID" equalTo:self.userID];
                     [queryVideos findObjectsInBackgroundWithBlock:^(NSArray *videos, NSError *errorVideo) {
                         NSMutableArray *videosArray = [[NSMutableArray alloc] init];
                         
@@ -137,7 +139,7 @@
                             Video *v = [[Video alloc] initWithFile:videos[i][@"file"] andTitle:videos[i][@"title"] andScreen:videos[i][@"screen"] andGenre:videos[i][@"genre"] andTheatricalCharacter:videos[i][@"theatricalCharacter"] andDescr:videos[i][@"description"]];
                             [videosArray addObject:v];
                         }
-                        self.talent=[[Talent alloc] initWithFullName:tFullName andAvatar:tAvatar andCity:tCity andGender:tGender andAge:tAge andHeight:tHeight andSkills:tSkills andLanguages:tLanguages andPhotos:photosArray andVideos:videosArray];
+                        self.talent=[[Talent alloc] initWithFullName:tFullName andAvatar:tAvatar andCity:tCity andCountry:tCountry andGender:tGender andAge:tAge andHeight:tHeight andSkills:tSkills andLanguages:tLanguages andPhotos:photosArray andVideos:videosArray];
                         [self setupTalent];
                     }];
                 }];
@@ -162,6 +164,8 @@
     [info appendString:height];
     [info appendString:@" cm, "];
     [info appendString:self.talent.city];
+    [info appendString:@", "];
+    [info appendString:self.talent.country];
     self.lblInfo.text=info;
     
     NSMutableString *skillsStr = [NSMutableString string];

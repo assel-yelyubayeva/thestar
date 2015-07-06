@@ -10,5 +10,6 @@
 #import "Talent.h"
 @interface TalentProfileViewController : UIViewController
 @property (nonatomic) Talent *talent;
+@property (nonatomic) NSString *userID;
 @end
 
